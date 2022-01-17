@@ -16,18 +16,6 @@ session_start();
 
 $connect = mysqli_connect("localhost", "root", "", "sotre");
 
-$dbHost = "localhost";
-$dbUser = "root";
-$dbPassword = "";
-$dbName = "sotre";
-
-try {
-      $dsn = "mysql:host=" . $dbHost . ";dbname=" . $dbName;
-      $pdo = new PDO($dsn, $dbUser, $dbPassword);
-} catch (PDOException $e) {
-      echo "DB Connection Failed" . $e->getMessage();
-}
-
 $status = "";
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $email = stripslashes($_POST['email']) ;

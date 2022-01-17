@@ -45,15 +45,14 @@ session_start();
                   } else if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                         $status = "Please enter a valid email";
                   } else if ($password != $passwordConfirm) {
-                        $status = "Password does not match";
-                  } else if (strlen($password) <= 5 || strlen($password) >= 30 || strlen($passwordConfirm) <= 6 || strlen($passwordConfirm) >= 30) {
+                        $status = "Passwords does not match";
+                  } else if (strlen($password) <= 5 || strlen($password) >= 26 || strlen($passwordConfirm) <= 6 || strlen($passwordConfirm) >= 26) {
                         $status = "Password should be between 6 to 30 letters";
                   } else {
                         $sql = "INSERT INTO users (username, password, email) VALUE (:username, :password, :email)";
                         $stmt = $pdo->prepare($sql);
                         $stmt-> execute(['username' => $username, 'password' => $encryptedPassword, 'email' => $email]);
-
-                        header("Location: http://localhost/test2/login");
+                        header("Location: /login");
                   }
             }
       }
