@@ -71,3 +71,7 @@ button.signupBtn:hover {
 .showpsw {
       margin-left: 80px;
 }
+
+.form-status {
+      text-align: center;
+}
