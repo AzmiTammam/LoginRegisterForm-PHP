@@ -18,9 +18,7 @@ session_start();
                   <div class="col-12">
                   <h2 class="mx-5 text-left">Welcome
                   <?php
-                  if(isset($_SESSION["loginUser"])) {
-                        echo $_SESSION["loginUser"]["name"];
-                  }  ?>
+                  $_SESSION['name'] ?>
                   </h2>
                   </div>
             </div>

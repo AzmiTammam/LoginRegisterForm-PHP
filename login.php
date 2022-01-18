@@ -18,24 +18,35 @@ $connect = mysqli_connect("localhost", "root", "", "sotre");
 
 $status = "";
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-      $email = stripslashes($_POST['email']) ;
+      $email = stripslashes($_POST['email']);
       $password = stripslashes($_POST['psw1']);
       $encryptedPassword = md5($password);
-      
       if (empty($email) || empty($password)) {
             $status = "All fields are required";
       } else {
             $email = mysqli_real_escape_string($connect, $_POST["email"]);
             $password = mysqli_real_escape_string($connect, isset($_POST["password"]));
-            $login = "SELECT * FROM users WHERE email = '$email' AND password = '$encryptedPassword'";
 
+            $login = "SELECT * FROM users WHERE email = '$email' AND password = '$encryptedPassword' LIMIT 1";
             $result = mysqli_query($connect, $login);
-            if (mysqli_num_rows($result) > 0) {
 
+
+            $loggedUser = mysqli_fetch_assoc($result);
+
+
+
+            if(mysqli_num_rows($result) == 1) {
+
+                  if($loggedUser['is_admin'] == 1) {
+                  header("location: http://localhost/test2/admin");
+                  } else {
+                  $_SESSION['name'] = $loggedUser['username'];
                   header("location: http://localhost/test2/dashboard");
+                  }
             } else {
                   echo '<script>alert("Email or Password is Incorrect")</script>';
             }
+
       }
 }
 ?>
