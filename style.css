@@ -61,17 +61,15 @@ button.signupBtn:hover {
 .haveAccountMSG a {
       text-decoration: none !important;
 }
-.errmsg {
+.form-status {
       color: red !important;
       text-align: center;
-      display: none;
       margin: 1px 0 1px 5px;
+}
+.form-status span {
+      display: block;
 }
 
 .showpsw {
       margin-left: 80px;
-}
-
-.form-status {
-      text-align: center;
 }

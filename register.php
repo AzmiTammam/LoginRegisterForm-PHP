@@ -33,8 +33,7 @@ session_start();
 
 
       $status = "";
-      $alreadyTakenUsername = "";
-      $alreadyTakenEmail = "";
+      $alreadyTakenAccount = "";
       if($_SERVER['REQUEST_METHOD'] == 'POST') {
             $username = stripslashes($_POST['username']); // StripsLashes for removes backslashes.
             $email = stripslashes($_POST['email']);
@@ -58,12 +57,12 @@ session_start();
                         $status = "Please enter a valid email";
                   } else if ($password != $passwordConfirm) {
                         $status = "Passwords does not match";
-                  } else if (strlen($password) <= 5 || strlen($password) >= 26 || strlen($passwordConfirm) <= 6 || strlen($passwordConfirm) >= 26) {
-                        $status = "Password should be between 6 to 30 letters";
+                  } else if (strlen($password) <= 5 || strlen($password) >= 26 || strlen($passwordConfirm) <= 5 || strlen($passwordConfirm) >= 26) {
+                        $status = "Password should be between 6 to 25 letters";
                   } else if (mysqli_num_rows($res_u) > 0) {
-                        $alreadyTakenUsername = "Username already registered";
+                        $alreadyTakenAccount = "Username already registered";
                   } else if (mysqli_num_rows($res_e) > 0) {
-                        $alreadyTakenEmail = "Email already registered";
+                        $alreadyTakenAccount = "Email already registered";
                   } else {
                         $sql = "INSERT INTO users (username, password, email) VALUE (:username, :password, :email)";
                         $stmt = $pdo->prepare($sql);
@@ -80,7 +79,7 @@ session_start();
                         <form action="register.php" method="POST" autocomplete="off">
                               <h2>Sign up</h2>
                               <div class="block">
-                                    <input type="text" name="username" class="regInput" id="username" onkeyup="handleInputErr()" placeholder="Username" required autocomplete="off" maxlength="23">
+                                    <input type="text" name="username" class="regInput" id="username" onchange="handleInputErr()" placeholder="Username" required autocomplete="off" maxlength="23">
                                     <input type="email" name="email" id="email" class="regInput" id="email" onkeyup="handleEmail()" placeholder="Email" required autocomplete="off">
                                     <input type="password" name="psw1" id="psw1" class="regInput" onkeyup="lengthPsw(); matchingPsw()" placeholder="Password" required autocomplete="off">
                                     <input type="password" name="psw2" id="psw2" class="regInput" onkeyup="lengthPsw(); matchingPsw()" placeholder="Confirm Password" required autocomplete="off">
@@ -91,8 +90,11 @@ session_start();
                               <p class="haveAccountMSG">Have account already? <a href="./login">Sign in</a></p>
                               <div class="form-status">
                               <?php echo $status ?>
-                              <?php echo $alreadyTakenUsername ?>
-                              <?php echo $alreadyTakenEmail ?>
+                              <?php echo $alreadyTakenAccount ?>
+                              <span id="usernameErr"></span>
+                              <span id="emailErr"></span>
+                              <span id="passwordLengthErr"></span>
+                              <span id="ConfirmPasswordErr"></span>
                               </div>
                         </form>
                   </div>
