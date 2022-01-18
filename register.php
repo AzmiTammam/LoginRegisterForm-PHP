@@ -52,7 +52,7 @@ session_start();
                         $sql = "INSERT INTO users (username, password, email) VALUE (:username, :password, :email)";
                         $stmt = $pdo->prepare($sql);
                         $stmt-> execute(['username' => $username, 'password' => $encryptedPassword, 'email' => $email]);
-                        header("Location: /login");
+                        header("Location: /test2/login");
                   }
             }
       }
@@ -64,10 +64,10 @@ session_start();
                         <form action="register.php" method="POST" autocomplete="off">
                               <h2>Sign up</h2>
                               <div class="block">
-                                    <input type="text" name="username" class="regInput" id="name" placeholder="Username" onsubmit="handleInputErr()" required autocomplete="off" maxlength="23">
-                                    <input type="email" name="email" id="email" class="regInput" id="email" placeholder="Email" onkeydown="handleEmail()" required autocomplete="off">
-                                    <input type="password" name="psw1" id="psw1" class="regInput" placeholder="Password"  onkeydown="matchingPsw(); lengthPsw();" required autocomplete="off">
-                                    <input type="password" name="psw2" id="psw2" class="regInput" placeholder="Confirm Password" onkeyup="matchingPsw(); lengthPsw();" required autocomplete="off">
+                                    <input type="text" name="username" class="regInput" id="username" onkeyup="handleInputErr()" placeholder="Username" required autocomplete="off" maxlength="23">
+                                    <input type="email" name="email" id="email" class="regInput" id="email" onkeyup="handleEmail()" placeholder="Email" required autocomplete="off">
+                                    <input type="password" name="psw1" id="psw1" class="regInput" onkeyup="lengthPsw(); matchingPsw()" placeholder="Password" required autocomplete="off">
+                                    <input type="password" name="psw2" id="psw2" class="regInput" onkeyup="lengthPsw(); matchingPsw()" placeholder="Confirm Password" required autocomplete="off">
 
                                     <span class="showpsw"><input type="checkbox" name="showPassword" id="showpsw" onclick="showPSW()"> <label for="showpsw">Show password</label></span>
                               </div>
