@@ -29,13 +29,24 @@ session_start();
             echo "DB Connection Failed" . $e->getMessage();
       }
       
+      $connect = mysqli_connect("localhost", "root", "", "sotre");
+
+
       $status = "";
+      $alreadyTakenUsername = "";
+      $alreadyTakenEmail = "";
       if($_SERVER['REQUEST_METHOD'] == 'POST') {
             $username = stripslashes($_POST['username']); // StripsLashes for removes backslashes.
             $email = stripslashes($_POST['email']);
             $password = stripslashes($_POST['psw1']);
             $passwordConfirm = stripslashes($_POST['psw2']);
             $encryptedPassword = md5($password);
+
+            $sql_u = "SELECT * FROM users WHERE username='$username'";
+            $sql_e = "SELECT * FROM users WHERE email='$email'";
+
+            $res_u = mysqli_query($connect, $sql_u);
+            $res_e = mysqli_query($connect, $sql_e);
 
             // Validation for Sign up
             if(empty($username) || empty($email) || empty($password) || empty($passwordConfirm)) { 
@@ -49,6 +60,10 @@ session_start();
                         $status = "Passwords does not match";
                   } else if (strlen($password) <= 5 || strlen($password) >= 26 || strlen($passwordConfirm) <= 6 || strlen($passwordConfirm) >= 26) {
                         $status = "Password should be between 6 to 30 letters";
+                  } else if (mysqli_num_rows($res_u) > 0) {
+                        $alreadyTakenUsername = "Username already registered";
+                  } else if (mysqli_num_rows($res_e) > 0) {
+                        $alreadyTakenEmail = "Email already registered";
                   } else {
                         $sql = "INSERT INTO users (username, password, email) VALUE (:username, :password, :email)";
                         $stmt = $pdo->prepare($sql);
@@ -76,6 +91,8 @@ session_start();
                               <p class="haveAccountMSG">Have account already? <a href="./login">Sign in</a></p>
                               <div class="form-status">
                               <?php echo $status ?>
+                              <?php echo $alreadyTakenUsername ?>
+                              <?php echo $alreadyTakenEmail ?>
                               </div>
                         </form>
                   </div>
