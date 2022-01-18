@@ -21,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $email = stripslashes($_POST['email']);
       $password = stripslashes($_POST['psw1']);
       $encryptedPassword = md5($password);
+
       if (empty($email) || empty($password)) {
             $status = "All fields are required";
       } else {
@@ -28,12 +29,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $password = mysqli_real_escape_string($connect, isset($_POST["password"]));
 
             $login = "SELECT * FROM users WHERE email = '$email' AND password = '$encryptedPassword' LIMIT 1";
+
             $result = mysqli_query($connect, $login);
 
-
             $loggedUser = mysqli_fetch_assoc($result);
-
-
 
             if(mysqli_num_rows($result) == 1) {
 
