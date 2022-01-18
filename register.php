@@ -16,11 +16,11 @@ session_start();
 
 <body>
       <?php
-
+      // Database info
       $dbHost = "localhost";
       $dbUser = "root";
       $dbPassword = "";
-      $dbName = "sotre";
+      $dbName = "sotre"; // Typing error, store.
 
       try {
             $dsn = "mysql:host=" . $dbHost . ";dbname=" . $dbName;
@@ -28,16 +28,17 @@ session_start();
       } catch(PDOException $e) {
             echo "DB Connection Failed" . $e->getMessage();
       }
-
+      
       $status = "";
       if($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $username = stripslashes($_POST['username']);
+            $username = stripslashes($_POST['username']); // StripsLashes for removes backslashes.
             $email = stripslashes($_POST['email']);
             $password = stripslashes($_POST['psw1']);
             $passwordConfirm = stripslashes($_POST['psw2']);
             $encryptedPassword = md5($password);
 
-            if(empty($username) || empty($email) || empty($password) || empty($passwordConfirm)) {
+            // Validation for Sign up
+            if(empty($username) || empty($email) || empty($password) || empty($passwordConfirm)) { 
                   $status = "All fields are required";
             } else {
                   if(strlen($username) <= 3 || strlen($username) >= 18 || !preg_match("/^[a-zA-Z'\s]+$/", $username)) {
