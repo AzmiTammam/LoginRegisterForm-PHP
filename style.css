@@ -25,7 +25,7 @@ input.regInput {
       outline: none;
 }
 
-form{
+.loginPage form, .registerPage form{
       margin: 85px auto 50px;
       width: 35%;
       border-radius: 5px;
