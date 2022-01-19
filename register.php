@@ -69,9 +69,11 @@ if (isLoggedIn()) {
                   } else if (mysqli_num_rows($res_e) > 0) {
                         $alreadyTakenAccount = "Email already registered";
                   } else {
-                        $sql = "INSERT INTO users (username, password, email) VALUE (:username, :password, :email)";
+                        $createdDate = date("Y/m/d");
+
+                        $sql = "INSERT INTO users (username, password, email, date_created) VALUE (:username, :password, :email, :date_created)";
                         $stmt = $pdo->prepare($sql);
-                        $stmt-> execute(['username' => $username, 'password' => $encryptedPassword, 'email' => $email]);
+                        $stmt-> execute(['username' => $username, 'password' => $encryptedPassword, 'email' => $email, 'date_created' => $createdDate ]);
                         header("Location: /test2/login");
                   }
             }
