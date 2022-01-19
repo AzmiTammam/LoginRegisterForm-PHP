@@ -4,6 +4,7 @@
 session_start();
 
 include('../functions.php');
+
 if (!isLoggedInAdmin()) {
     header('location: http://localhost/test2/');
 }
@@ -380,10 +381,12 @@ $connect = mysqli_connect("localhost", "root", "", "sotre");
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
+                                        <th>ID</th>
                                             <th>Role</th>
                                             <th>Username</th>
                                             <th>Email</th>
+                                            <th>Date created</th>
+                                            <th>Last entry date</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -393,24 +396,28 @@ $connect = mysqli_connect("localhost", "root", "", "sotre");
                                             <th>Role</th>
                                             <th>Username</th>
                                             <th>Email</th>
+                                            <th>Date created</th>
+                                            <th>Last entry date</th>
                                             <th>Action</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
                                         <?php
-                                        $showUsersInTable = "SELECT id, is_admin, username, password, email FROM users";
-                                        $resultUsersInTable = $connect->query($showUsersInTable);
+                                        $usersQuery = $pdo->prepare("SELECT * FROM users");
+                                        $usersQuery->execute();
 
-                                        if ($resultUsersInTable->num_rows > 0) {
-                                            // output data of each row
-                                            while ($row = $resultUsersInTable->fetch_assoc()) {
-                                                echo "<tr><td>" . ($row["is_admin"] === '0' ? "<span>{$row['id']}</span>" : "<span class='admin'>{$row['id']}</span>") . "</td><td>" . ($row["is_admin"] === '0' ? "User" : "<span class='admin'>Admin</span>") . "</td><td>" . ($row["is_admin"] === '0' ? "<span>{$row['username']}</span>" : "<span class='admin'>{$row['username']}</span>") . "</td><td>" . ($row["is_admin"] === '0' ? "<span>{$row['email']}</span>" : "<span class='admin'>{$row['email']}</span>") . "</td><td>" . "<button class='btn text-danger text-center mx-1 border-danger'>Delete</button>" . "<button class='btn text-primary text-center mx-1 border-primary px-3'>Edit</button>" . "</td></tr>";
-                                            }
-                                        } else {
-                                            echo "0 results";
-                                        }
+                                            foreach ($usersQuery as $user) {
+                                                echo "<tr>";
+                                                echo "<td>" . ($user['is_admin'] === '0' ? "<span>$user[id]</span>" : "<span class='admin'>$user[id]</span>") . "</td>";
+                                                echo "<td>" . ($user['is_admin'] === '0' ? "<span>User</span>" : "<span class='admin'>Admin</span>") . "</td>";
+                                                echo "<td>" . ($user['is_admin'] === '0' ? "<span>$user[username]</span>" : "<span class='admin'>$user[username]</span>") . "</td>";
+                                                echo "<td>" . ($user['is_admin'] === '0' ? "<span>$user[email]</span>" : "<span class='admin'>$user[email]</span>") . "</td>";
+                                                echo "<td>" . ($user['is_admin'] === '0' ? "<span>$user[date_created]</span>" : "<span class='admin'>$user[date_created]</span>") . "</td>";
+                                                echo "<td>" . ($user['is_admin'] === '0' ? "<span>$user[last_login_date]</span>" : "<span class='admin'>$user[last_login_date]</span>") . "</td>";
 
-                                        $connect->close();
+                                                echo "<td> <a href='#' class='btn text-primary text-center mx-1 border-primary' >Edit</a> <a href='./deleteUser.php?id=$user[id]' class='btn text-danger text-center mx-1 border-danger' >Delete</a></td>";
+/*                                                 echo "<tr><td>" . ($es["is_admin"] === '0' ? "<span>{$es['id']}</span>" : "<span class='admin'>{$es['id']}</span>") . "</td><td>" . ($es["is_admin"] === '0' ? "User" : "<span class='admin'>Admin</span>") . "</td><td>" . ($es["is_admin"] === '0' ? "<span>{$es['username']}</span>" : "<span class='admin'>{$es['username']}</span>") . "</td><td>" . ($es["is_admin"] === '0' ? "<span>{$es['email']}</span>" : "<span class='admin'>{$es['email']}</span>") . "</td><td>" . "<a href='./deleteUser.php?id=$es[id]'  class='btn text-danger text-center mx-1 border-danger' >Delete</a>" . "<button class='btn text-primary text-center mx-1 border-primary px-3'>Edit</button>" . "</td></tr>";
+ */                                            }
                                         ?>
                                     </tbody>
                                 </table>
