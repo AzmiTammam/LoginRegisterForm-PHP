@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php 
+session_start();
 
+include('../functions.php');
+if (!isLoggedInAdmin()) {
+	header('location: http://localhost/test2/');
+}
+?>
 <head>
 
     <meta charset="utf-8">

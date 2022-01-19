@@ -42,6 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if(mysqli_num_rows($result) == 1) {
 
                   if($loggedUser['is_admin'] == 1) {
+                  $_SESSION['isAdmin'] = true;
+                  $_SESSION['name'] = $loggedUser['username'];
                   header("location: http://localhost/test2/admin");
                   } else {
                   $_SESSION['name'] = $loggedUser['username'];

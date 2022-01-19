@@ -9,4 +9,13 @@ function isLoggedIn()
 	}
 }
 
+function isLoggedInAdmin()
+{
+	if (isset($_SESSION['isAdmin'])) {
+		return true;
+	}else{
+		return false;
+	}
+}
+
 ?>
