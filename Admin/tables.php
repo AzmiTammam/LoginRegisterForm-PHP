@@ -154,7 +154,7 @@ $connect = mysqli_connect("localhost", "root", "", "sotre");
             <li class="nav-item active">
                 <a class="nav-link" href="tables.php">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
+                    <span>Users</span></a>
             </li>
 
             <!-- Divider -->
@@ -404,7 +404,7 @@ $connect = mysqli_connect("localhost", "root", "", "sotre");
                                         if ($resultUsersInTable->num_rows > 0) {
                                             // output data of each row
                                             while ($row = $resultUsersInTable->fetch_assoc()) {
-                                                echo "<tr><td>" . ($row["is_admin"] === '0' ? "<span>{$row['id']}</span>" : "<span class='admin'>{$row['id']}</span>") . "</td><td>" . ($row["is_admin"] === '0' ? "User" : "<span class='admin'>Admin</span>") . "</td><td>" . ($row["is_admin"] === '0' ? "<span>{$row['username']}</span>" : "<span class='admin'>{$row['username']}</span>") . "</td><td>" . ($row["is_admin"] === '0' ? "<span>{$row['email']}</span>" : "<span class='admin'>{$row['email']}</span>") . "</td><td>" . "H" . "</td></tr>";
+                                                echo "<tr><td>" . ($row["is_admin"] === '0' ? "<span>{$row['id']}</span>" : "<span class='admin'>{$row['id']}</span>") . "</td><td>" . ($row["is_admin"] === '0' ? "User" : "<span class='admin'>Admin</span>") . "</td><td>" . ($row["is_admin"] === '0' ? "<span>{$row['username']}</span>" : "<span class='admin'>{$row['username']}</span>") . "</td><td>" . ($row["is_admin"] === '0' ? "<span>{$row['email']}</span>" : "<span class='admin'>{$row['email']}</span>") . "</td><td>" . "<button class='btn text-danger text-center mx-1 border-danger'>Delete</button>" . "<button class='btn text-primary text-center mx-1 border-primary px-3'>Edit</button>" . "</td></tr>";
                                             }
                                         } else {
                                             echo "0 results";
@@ -428,7 +428,7 @@ $connect = mysqli_connect("localhost", "root", "", "sotre");
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
+                        <span>Copyright &copy; AzmiTammam 2022</span>
                     </div>
                 </div>
             </footer>
