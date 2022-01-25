@@ -38,7 +38,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $result = mysqli_query($connect, $login);
 
             $loggedUser = mysqli_fetch_assoc($result);
-
             if(mysqli_num_rows($result) == 1) {
 
                   if($loggedUser['is_admin'] == 1) {
@@ -52,7 +51,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             } else {
                   echo '<script>alert("Email or Password is Incorrect")</script>';
             }
-
       }
 }
 ?>

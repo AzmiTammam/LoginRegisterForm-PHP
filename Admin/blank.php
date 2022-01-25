@@ -25,7 +25,7 @@ if (!isLoggedInAdmin()) {
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 
 <body id="page-top">
@@ -344,8 +344,30 @@ if (!isLoggedInAdmin()) {
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
-
+                    <h1 class="h3 mb-4 text-gray-800">Update User</h1>
+                    <form action="http://localhost/test2/admin/updateUser.php" method="POST">
+                        <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" name="username" id="username" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" id="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="text" name="password" id="password" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                        <label for="password">Role</label>
+                        <select name="role" id="role" required class="form-control">
+                            <option disabled>Select value</option>
+                            <option value="0">Member</option>
+                            <option value="1">Admin</option>
+                        </select>
+                        <button type="submit" class="btn border-primary text-primary" name="updateUser">Submit</button>
+                        </div>
+                    </form>
                 </div>
                 <!-- /.container-fluid -->
 
